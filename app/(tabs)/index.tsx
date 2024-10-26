@@ -29,7 +29,12 @@ const ChatArea = ({ selectedChat, messages, onSendMessage }: any) => (
     {selectedChat ? (
       <ChatMessages messages={messages} onSendMessage={onSendMessage} />
     ) : (
-      <Text>No hay mensajes disponibles.</Text>
+      <View style={styles.noMessageContainer}>
+        <Ionicons name="chatbubble-outline" size={80} color="#b0bec5" />
+        <Text style={styles.noMessageText}>
+          Select a chat to start messaging
+        </Text>
+      </View>
     )}
   </View>
 );
@@ -161,7 +166,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     padding: 10,
-    marginRight: 10,
     borderRadius: 10,
     shadowColor: "#000",
     shadowOpacity: 0.1,
@@ -172,8 +176,8 @@ const styles = StyleSheet.create({
   chatArea: {
     flex: 2,
     backgroundColor: "#ffffff",
-    padding: Platform.select({ web: 10, default: 0 }), // Solo en web
-    marginHorizontal: Platform.select({ web: 10, default: 0 }), // Solo en web
+    padding: Platform.select({ web: 10, default: 0 }),
+    marginHorizontal: Platform.select({ web: 10, default: 0 }),
     borderRadius: 10,
     shadowColor: "#000",
     shadowOpacity: 0.1,
@@ -225,6 +229,22 @@ const styles = StyleSheet.create({
     color: "#7a7a7a",
     textAlign: "center",
     fontWeight: "500",
+  },
+  noMessageContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f8f9fa",
+    borderRadius: 10,
+    padding: 20,
+    margin: Platform.OS === "web" ? 10 : 0,
+  },
+  noMessageText: {
+    marginTop: 20,
+    fontSize: 18,
+    fontWeight: "500",
+    color: "#7a7a7a",
+    textAlign: "center",
   },
 });
 

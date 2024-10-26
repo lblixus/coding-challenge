@@ -44,8 +44,10 @@ const UserDetails = ({ user }: { user: User }) => {
         <TouchableOpacity
           style={[styles.mediaButton, { width: width < 400 ? "100%" : "70%" }]}
         >
-          <Ionicons name="image-outline" size={24} color="#fff" />
-          <View style={styles.spacer} />
+          <View style={styles.mediaIconContainer}>
+            <Ionicons name="image-outline" size={24} color="#fff" />
+          </View>
+          <Text style={styles.mediaButtonText}>Media</Text>
           <View style={styles.mediaBadge}>
             <Text style={styles.mediaCount}>0</Text>
           </View>
@@ -149,34 +151,53 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#333",
   },
+  mediaIconContainer: {
+    backgroundColor: "#3D5AFE",
+    padding: 10,
+    borderRadius: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    marginRight: 12,
+  },
   mediaButton: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    backgroundColor: "#3D5AFE",
-    borderRadius: 8,
-    marginVertical: 15,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    backgroundColor: "#4A90E2",
+    borderRadius: 12,
+    marginVertical: 20,
     shadowColor: "#000",
-    shadowOpacity: 0.2,
+    shadowOpacity: 0.15,
     shadowOffset: { width: 0, height: 5 },
-    shadowRadius: 10,
+    shadowRadius: 8,
     justifyContent: "center",
+    width: "100%",
+    elevation: 5,
   },
+  mediaButtonText: {
+    fontSize: 16,
+    color: "#fff",
+    fontWeight: "600",
+    textAlign: "center",
+  },
+
   spacer: {
     flex: 1,
   },
   mediaBadge: {
     backgroundColor: "#fff",
-    borderRadius: 10,
-    paddingVertical: 2,
-    paddingHorizontal: 6,
+    borderRadius: 12,
+    paddingVertical: 4,
+    paddingHorizontal: 8,
     marginLeft: 8,
+    alignItems: "center",
+    justifyContent: "center",
   },
   mediaCount: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: "#3D5AFE",
+    fontWeight: "700",
+    color: "#4A90E2",
   },
   additionalInfo: {
     marginTop: 20,
@@ -224,7 +245,7 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
   },
   saveButton: {
-    backgroundColor: "#3D5AFE",
+    backgroundColor: "#4A90E2",
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 10,

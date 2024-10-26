@@ -1,13 +1,15 @@
 import { Stack } from "expo-router";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import "../config/i18n";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import queryClient from "@/services/queryClient";
 import AppWrapper from "@/store/AppWrapper";
-import store from "@/store/store";
-import { Image, Text, View, Platform } from "react-native";
+import store, { RootState } from "@/store/store";
+import { Image, Text, View, Platform, TouchableOpacity } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useLogout } from "@/hooks/useLogout";
 
 export default function RootLayout() {
   return (
@@ -15,46 +17,89 @@ export default function RootLayout() {
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
           <SafeAreaProvider>
-            <Stack
-              screenOptions={{
-                headerShown: true,
-                headerStyle: {
-                  backgroundColor: "#fff",
-                },
-                headerTitle: () =>
-                  Platform.OS === "web" ? (
-                    <Image
-                      source={require("@/assets/images/svgviewer-png-output.png")}
-                      style={{
-                        height: 40,
-                        width: 160,
-                        resizeMode: "contain",
-                        alignSelf: "flex-start",
-                      }}
-                    />
-                  ) : (
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        fontWeight: "bold",
-                        color: "#333",
-                      }}
-                    >
-                      HeyCenter WhatsChat
-                    </Text>
-                  ),
-                headerTitleAlign: "left",
-              }}
-            >
-              <Stack.Screen name="(tabs)" />
-              <Stack.Screen name="auth/login" />
-              <Stack.Screen name="index" />
-            </Stack>
-
+            <StackWithCustomHeader />
             <AppWrapper />
           </SafeAreaProvider>
         </QueryClientProvider>
       </Provider>
     </GestureHandlerRootView>
+  );
+}
+
+function StackWithCustomHeader() {
+  const handleLogout = useLogout();
+  const user = useSelector((state: RootState) => state.auth.user);
+
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: "#fff",
+        },
+        headerTitle: () =>
+          Platform.OS === "web" ? (
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Image
+                source={require("@/assets/images/svgviewer-png-output.png")}
+                style={{
+                  height: 40,
+                  width: 160,
+                  resizeMode: "contain",
+                  alignSelf: "flex-start",
+                }}
+              />
+            </View>
+          ) : (
+            <Text
+              style={{
+                fontSize: 18,
+                fontWeight: "bold",
+                color: "#333",
+              }}
+            >
+              HeyCenter WhatsChat
+            </Text>
+          ),
+        headerRight: () =>
+          Platform.OS === "web" &&
+          user && (
+            <TouchableOpacity
+              onPress={handleLogout}
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                paddingVertical: 8,
+                paddingHorizontal: 15,
+                backgroundColor: "#0a7ea4",
+                borderRadius: 8,
+                shadowColor: "#000",
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.15,
+                shadowRadius: 4,
+                marginRight: 15,
+              }}
+            >
+              <Ionicons name="log-out-outline" size={20} color="#fff" />
+              <Text
+                style={{
+                  color: "#fff",
+                  fontWeight: "600",
+                  marginLeft: 8,
+                }}
+              >
+                Logout
+              </Text>
+            </TouchableOpacity>
+          ),
+        headerTitleAlign: "left",
+      }}
+    >
+      {Platform.OS === "web" || user ? (
+        <Stack.Screen name="(tabs)" />
+      ) : (
+        <Stack.Screen name="auth/login" />
+      )}
+    </Stack>
   );
 }

@@ -26,6 +26,9 @@ const ChatMessages = ({ messages, onSendMessage }: ChatMessagesProps) => {
     if (newMessage.trim()) {
       onSendMessage(newMessage);
       setNewMessage("");
+      setTimeout(() => {
+        scrollViewRef.current?.scrollToEnd({ animated: true });
+      }, 100);
     }
   };
 
@@ -44,21 +47,42 @@ const ChatMessages = ({ messages, onSendMessage }: ChatMessagesProps) => {
                 }
               >
                 <Text
+                  style={[
+                    styles.senderLabel,
+                    { color: message.isSent ? "#fff" : "#333" },
+                  ]}
+                >
+                  {message.isSent ? "You" : "Sender"}
+                </Text>
+                <View
                   style={
-                    message.isSent ? styles.sentMessage : styles.receivedMessage
+                    message.isSent ? styles.sentBubble : styles.receivedBubble
                   }
                 >
-                  {message.text}
-                </Text>
-                <View style={styles.messageInfo}>
-                  <Text style={styles.messageDate}>
-                    {formatDate(message.createdAt)}
+                  <Text
+                    style={
+                      message.isSent
+                        ? styles.sentMessageText
+                        : styles.messageText
+                    }
+                  >
+                    {message.text}
                   </Text>
-                  {message.isSent && (
-                    <Text style={styles.checkmarks}>
-                      {message.readAt ? "✔✔" : "✔"}
+                  <View style={styles.messageInfo}>
+                    <Text
+                      style={[
+                        styles.messageDate,
+                        message.isSent && styles.sentMessageDate,
+                      ]}
+                    >
+                      {formatDate(message.createdAt)}
                     </Text>
-                  )}
+                    {message.isSent && (
+                      <Text style={styles.checkmarks}>
+                        {message.readAt ? "✔✔" : "✔"}
+                      </Text>
+                    )}
+                  </View>
                 </View>
               </View>
             ))
@@ -95,7 +119,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
-    backgroundColor: "#F8F9FA",
+    backgroundColor: "#fff",
   },
   messagesContainer: {
     flex: 1,
@@ -116,33 +140,57 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 10,
   },
-  sentMessage: {
-    backgroundColor: "#007bff",
-    color: "#fff",
+  senderLabel: {
+    fontSize: 12,
+    fontWeight: "600",
+    marginBottom: 2,
+  },
+  sentBubble: {
+    backgroundColor: "#5dade2",
     padding: 12,
-    borderRadius: 10,
+    borderRadius: 20,
+    borderTopRightRadius: 5,
+    shadowColor: "#000",
+    shadowOpacity: 0.15,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+  },
+  receivedBubble: {
+    backgroundColor: "#f0f0f5",
+    padding: 12,
+    borderRadius: 20,
+    borderTopLeftRadius: 5,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+  },
+  sentMessageText: {
+    color: "#fff",
     fontSize: 16,
   },
-  receivedMessage: {
-    backgroundColor: "#e4e6eb",
-    color: "#000",
-    padding: 12,
-    borderRadius: 10,
+  messageText: {
+    color: "#333",
     fontSize: 16,
   },
   messageInfo: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 4,
+    marginTop: 5,
   },
   messageDate: {
     fontSize: 12,
-    color: "#A9A9A9",
+    color: "#000",
+  },
+  sentMessageDate: {
+    fontWeight: "bold",
+    color: "#1b4f72",
   },
   checkmarks: {
     fontSize: 14,
-    color: "#3D99FF",
+    color: "#1b4f72",
+    marginLeft: 5,
   },
   noMessages: {
     color: "#A9A9A9",
