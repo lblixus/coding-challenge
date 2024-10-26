@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import ChatTabView from "@/components/chats-tab/ChatsTab";
 import ChatMessages from "@/components/chats-tab/ChatMessages";
 import UserDetails from "@/components/chats-tab/ChatUserDetail";
-
 import { Chat, Message } from "@/types/Chat";
 import { getMessages } from "@/services/clientService";
 
@@ -15,7 +21,11 @@ const Sidebar = ({ onSelectChat, selectedChatId }: any) => (
 
 const ChatArea = ({ selectedChat, messages, onSendMessage }: any) => (
   <View style={styles.chatArea}>
-    <Text style={styles.header}>Chat Actual</Text>
+    {Platform.OS === "web" && (
+      <Text style={styles.headerTitle}>
+        {selectedChat ? selectedChat.name : "Chat"}
+      </Text>
+    )}
     {selectedChat ? (
       <ChatMessages messages={messages} onSendMessage={onSendMessage} />
     ) : (
@@ -41,6 +51,7 @@ const UserDetailsArea = ({ selectedChat }: any) => (
 function ChatLayout() {
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isChatView, setIsChatView] = useState(false);
 
   useEffect(() => {
     const loadMessages = async () => {
@@ -73,17 +84,60 @@ function ChatLayout() {
   };
 
   return (
-    <View style={styles.container}>
-      <Sidebar
-        onSelectChat={setSelectedChat}
-        selectedChatId={selectedChat?.id}
-      />
-      <ChatArea
-        selectedChat={selectedChat}
-        messages={messages}
-        onSendMessage={handleSendMessage}
-      />
-      <UserDetailsArea selectedChat={selectedChat} />
+    <View
+      style={[
+        styles.container,
+        Platform.OS === "web"
+          ? styles.webContainer
+          : isChatView && styles.mobileChatContainer,
+      ]}
+    >
+      {Platform.OS !== "web" && isChatView && (
+        <View style={styles.headerContainer}>
+          <TouchableOpacity onPress={() => setIsChatView(false)}>
+            <Ionicons name="arrow-back" size={24} color="#333" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>
+            {selectedChat ? selectedChat.name : "Chat"}
+          </Text>
+        </View>
+      )}
+
+      {Platform.OS === "web" ? (
+        <View style={styles.webContent}>
+          <Sidebar
+            onSelectChat={(chat: any) => {
+              setSelectedChat(chat);
+              setIsChatView(true);
+            }}
+            selectedChatId={selectedChat?.id}
+          />
+          <ChatArea
+            selectedChat={selectedChat}
+            messages={messages}
+            onSendMessage={handleSendMessage}
+          />
+          <UserDetailsArea selectedChat={selectedChat} />
+        </View>
+      ) : (
+        <>
+          {!isChatView ? (
+            <Sidebar
+              onSelectChat={(chat: any) => {
+                setSelectedChat(chat);
+                setIsChatView(true);
+              }}
+              selectedChatId={selectedChat?.id}
+            />
+          ) : (
+            <ChatArea
+              selectedChat={selectedChat}
+              messages={messages}
+              onSendMessage={handleSendMessage}
+            />
+          )}
+        </>
+      )}
     </View>
   );
 }
@@ -91,9 +145,17 @@ function ChatLayout() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row",
-    padding: 10,
     backgroundColor: "#f0f4f8",
+  },
+  webContainer: {
+    padding: 10,
+  },
+  webContent: {
+    flexDirection: "row",
+    flex: 1,
+  },
+  mobileChatContainer: {
+    flexDirection: "column",
   },
   sidebar: {
     flex: 1,
@@ -110,8 +172,8 @@ const styles = StyleSheet.create({
   chatArea: {
     flex: 2,
     backgroundColor: "#ffffff",
-    padding: 10,
-    marginHorizontal: 10,
+    padding: Platform.select({ web: 10, default: 0 }), // Solo en web
+    marginHorizontal: Platform.select({ web: 10, default: 0 }), // Solo en web
     borderRadius: 10,
     shadowColor: "#000",
     shadowOpacity: 0.1,
@@ -119,10 +181,18 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     overflow: "hidden",
   },
-  header: {
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    padding: 10,
+    backgroundColor: "#f8f9fa",
+    borderBottomWidth: 1,
+    borderBottomColor: "#e0e0e0",
+  },
+  headerTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginLeft: 10,
     color: "#333",
   },
   details: {
@@ -149,12 +219,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     width: "90%",
     textAlign: "center",
-  },
-  placeholderImage: {
-    width: 60,
-    height: 60,
-    marginBottom: 20,
-    tintColor: "#b0bec5",
   },
   placeholderText: {
     fontSize: 16,
