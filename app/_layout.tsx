@@ -33,9 +33,12 @@ function StackWithCustomHeader() {
   return (
     <Stack
       screenOptions={{
-        headerShown: true,
+        headerShown: !!user,
         headerStyle: {
-          backgroundColor: "#fff",
+          backgroundColor:
+            Platform.OS === "ios" || Platform.OS === "android"
+              ? "#4A90E2"
+              : "#fff",
         },
         headerTitle: () =>
           Platform.OS === "web" ? (
@@ -53,9 +56,11 @@ function StackWithCustomHeader() {
           ) : (
             <Text
               style={{
-                fontSize: 18,
-                fontWeight: "bold",
-                color: "#333",
+                fontSize: 20,
+                fontWeight: "600",
+                color: "#ffffff",
+                letterSpacing: 0.5,
+                padding: 8,
               }}
             >
               HeyCenter WhatsChat

@@ -9,7 +9,9 @@ export interface LoginResponse {
 export const loginUser = async (user: any): Promise<LoginResponse> => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (user.email === "testuser@email.com" && user.password === "testpass") {
+      const email = user.email.toLowerCase();
+
+      if (email === "testuser@email.com" && user.password === "testpass") {
         resolve({
           token: "fake-jwt-token",
           user: {
