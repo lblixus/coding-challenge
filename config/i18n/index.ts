@@ -2,7 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import * as Localization from "expo-localization";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Platform } from "react-native"; // Importar Platform para detectar la plataforma
+import { Platform } from "react-native";
 import translationEn from "./locales/en-US/translation.json";
 import translationEs from "./locales/es-MX/translation.json";
 
@@ -11,28 +11,25 @@ const resources = {
   "es-MX": { translation: translationEs },
 };
 
-// Helper para obtener el valor de almacenamiento basado en la plataforma
 const getStorageItem = async (key: string): Promise<string | null> => {
   if (Platform.OS === "web") {
-    // Verificar si localStorage está disponible
     if (typeof window !== "undefined" && window.localStorage) {
-      return localStorage.getItem(key); // Usar localStorage en web
+      return localStorage.getItem(key);
     } else {
       return null;
     }
   } else {
-    return await AsyncStorage.getItem(key); // Usar AsyncStorage en mobile
+    return await AsyncStorage.getItem(key);
   }
 };
 
-// Helper para guardar el valor de almacenamiento basado en la plataforma
 const setStorageItem = async (key: string, value: string): Promise<void> => {
   if (Platform.OS === "web") {
     if (typeof window !== "undefined" && window.localStorage) {
-      localStorage.setItem(key, value); // Usar localStorage en web
+      localStorage.setItem(key, value);
     }
   } else {
-    await AsyncStorage.setItem(key, value); // Usar AsyncStorage en mobile
+    await AsyncStorage.setItem(key, value);
   }
 };
 
@@ -45,7 +42,6 @@ const initI18n = async () => {
       deviceLocales.length > 0 ? deviceLocales[0].languageTag : "es-MX";
   }
 
-  // Guardar el idioma seleccionado
   await setStorageItem("language", savedLanguage);
 
   i18n.use(initReactI18next).init({
@@ -54,7 +50,7 @@ const initI18n = async () => {
     lng: savedLanguage,
     fallbackLng: "es-MX",
     interpolation: {
-      escapeValue: false, // react already safes from xss
+      escapeValue: false,
     },
   });
 };

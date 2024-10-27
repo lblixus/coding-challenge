@@ -69,33 +69,49 @@ function StackWithCustomHeader() {
         headerRight: () =>
           Platform.OS === "web" &&
           user && (
-            <TouchableOpacity
-              onPress={handleLogout}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                paddingVertical: 8,
-                paddingHorizontal: 15,
-                backgroundColor: "#0a7ea4",
-                borderRadius: 8,
-                shadowColor: "#000",
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.15,
-                shadowRadius: 4,
-                marginRight: 15,
-              }}
-            >
-              <Ionicons name="log-out-outline" size={20} color="#fff" />
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Text
                 style={{
-                  color: "#fff",
+                  color: "#4A90E2",
                   fontWeight: "600",
-                  marginLeft: 8,
+                  fontSize: 14,
+                  paddingVertical: 6,
+                  paddingHorizontal: 8,
+                  backgroundColor: "#e8f4fb",
+                  borderRadius: 6,
+                  marginRight: 10,
                 }}
               >
-                Logout
+                Usuario conectado : {user.name}
               </Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={handleLogout}
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  paddingVertical: 8,
+                  paddingHorizontal: 15,
+                  backgroundColor: "#0a7ea4",
+                  borderRadius: 8,
+                  shadowColor: "#000",
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.15,
+                  shadowRadius: 4,
+                  marginRight: 15,
+                }}
+              >
+                <Ionicons name="log-out-outline" size={20} color="#fff" />
+                <Text
+                  style={{
+                    color: "#fff",
+                    fontWeight: "600",
+                    marginLeft: 8,
+                  }}
+                >
+                  Cerrar Sesión
+                </Text>
+              </TouchableOpacity>
+            </View>
           ),
         headerTitleAlign: "left",
       }}

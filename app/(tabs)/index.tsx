@@ -32,7 +32,7 @@ const ChatArea = ({ selectedChat, messages, onSendMessage }: any) => (
       <View style={styles.noMessageContainer}>
         <Ionicons name="chatbubble-outline" size={80} color="#b0bec5" />
         <Text style={styles.noMessageText}>
-          Select a chat to start messaging
+          Selecciona un chat para comenzar a enviar mensajes
         </Text>
       </View>
     )}
@@ -72,7 +72,7 @@ function ChatLayout() {
   const formatMessage = (msg: any): Message => ({
     id: msg._id,
     text: msg.message.text,
-    isSent: msg.message.typeUser === "Client",
+    isSent: msg.message.typeUser === "Cliente",
     createdAt: msg.message.createdAt || null,
     readAt: msg.message.readAt || null,
   });

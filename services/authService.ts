@@ -1,4 +1,3 @@
-// authService.ts
 import { User } from "@/types/User";
 
 export interface LoginResponse {
@@ -17,7 +16,7 @@ export const loginUser = async (user: any): Promise<LoginResponse> => {
           user: {
             id: 1,
             username: "testuser",
-            name: "Test User",
+            name: "Luis Tester - QA #0001263 ",
             email: "testuser@email.com",
           },
         });

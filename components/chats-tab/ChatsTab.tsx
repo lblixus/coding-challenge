@@ -6,11 +6,11 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  Platform,
 } from "react-native";
 import { useWindowDimensions } from "react-native";
-
 import { TabView, TabBar } from "react-native-tab-view";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { Chat } from "@/types/Chat";
 import { getClients } from "@/services/clientService";
 
@@ -110,31 +110,41 @@ export default function ChatTabView({
   );
 
   return (
-    <TabView
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      onIndexChange={setIndex}
-      initialLayout={{ width: layout.width }}
-      renderTabBar={(props) => (
-        <TabBar
-          {...props}
-          renderIcon={({ route, color }) =>
-            route.key === "chats" ? (
-              <Ionicons name="chatbubble-outline" size={20} color={color} />
-            ) : (
-              <Ionicons name="time-outline" size={20} color={color} />
-            )
-          }
-          indicatorStyle={{ backgroundColor: "#4CAF50" }}
-          style={styles.tabBar}
-          labelStyle={styles.tabLabel}
-        />
-      )}
-    />
+    <View style={styles.container}>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{ width: layout.width }}
+        renderTabBar={(props) => (
+          <TabBar
+            {...props}
+            renderIcon={({ route, color }) =>
+              route.key === "chats" ? (
+                <Ionicons name="chatbubble-outline" size={20} color={color} />
+              ) : (
+                <Ionicons name="time-outline" size={20} color={color} />
+              )
+            }
+            indicatorStyle={{ backgroundColor: "#4CAF50" }}
+            style={styles.tabBar}
+            labelStyle={styles.tabLabel}
+          />
+        )}
+      />
+      <TouchableOpacity style={styles.aiButton}>
+        <MaterialIcons name="auto-awesome" size={24} color="#ffffff" />
+        <Text style={styles.aiButtonText}>Ordenar por prioridad con IA</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+  },
   chatList: {
     paddingHorizontal: 10,
   },
@@ -189,5 +199,25 @@ const styles = StyleSheet.create({
   tabLabel: {
     color: "#333",
     fontWeight: "bold",
+  },
+  aiButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#4CAF50",
+    paddingVertical: 15,
+    paddingHorizontal: 10,
+    borderRadius: 12,
+    margin: 10,
+    elevation: 4,
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 3 },
+  },
+  aiButtonText: {
+    color: "#ffffff",
+    fontSize: 16,
+    fontWeight: "bold",
+    marginLeft: 8,
   },
 });

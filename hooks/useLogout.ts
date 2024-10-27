@@ -1,4 +1,3 @@
-// useLogout.ts
 import { useDispatch } from "react-redux";
 import { useRouter } from "expo-router";
 import { logoutAction } from "@/store/authSlice";

@@ -62,7 +62,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
             { color: activeTab === "Profile" ? activeColor : inactiveColor },
           ]}
         >
-          Profile
+          Mi Perfil
         </Text>
       </TouchableOpacity>
     </View>

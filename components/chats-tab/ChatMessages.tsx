@@ -7,12 +7,13 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons, Ionicons } from "@expo/vector-icons";
 import { ChatMessagesProps } from "@/types/Chat";
 import { useFormattedDate } from "@/hooks/useFormattedDate";
 
 const ChatMessages = ({ messages, onSendMessage }: ChatMessagesProps) => {
   const [newMessage, setNewMessage] = useState("");
+  const [translate, setTranslate] = useState(false);
   const scrollViewRef = useRef<ScrollView>(null);
   const formatDate = useFormattedDate();
 
@@ -31,6 +32,8 @@ const ChatMessages = ({ messages, onSendMessage }: ChatMessagesProps) => {
       }, 100);
     }
   };
+
+  const toggleTranslate = () => setTranslate((prev) => !prev);
 
   return (
     <View style={styles.container}>
@@ -96,6 +99,9 @@ const ChatMessages = ({ messages, onSendMessage }: ChatMessagesProps) => {
         <TouchableOpacity>
           <MaterialIcons name="emoji-emotions" size={24} color="#5A5A5A" />
         </TouchableOpacity>
+        <TouchableOpacity style={styles.attachmentButton}>
+          <Ionicons name="attach" size={24} color="#5A5A5A" />
+        </TouchableOpacity>
         <TextInput
           style={styles.input}
           placeholder="Escribe un mensaje..."
@@ -104,8 +110,18 @@ const ChatMessages = ({ messages, onSendMessage }: ChatMessagesProps) => {
           placeholderTextColor="#A9A9A9"
           onSubmitEditing={handleSendMessage}
         />
-        <TouchableOpacity>
-          <MaterialIcons name="attach-file" size={24} color="#5A5A5A" />
+        <TouchableOpacity
+          onPress={toggleTranslate}
+          style={styles.translateButton}
+        >
+          <MaterialIcons
+            name={translate ? "g-translate" : "translate"}
+            size={24}
+            color={translate ? "#3D99FF" : "#5A5A5A"}
+          />
+          {translate && (
+            <Text style={styles.translateText}>AI Para traducir</Text>
+          )}
         </TouchableOpacity>
         <TouchableOpacity onPress={handleSendMessage}>
           <FontAwesome name="send" size={24} color="#3D99FF" />
@@ -206,6 +222,9 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: "#e0e0e0",
   },
+  attachmentButton: {
+    marginLeft: 8,
+  },
   input: {
     flex: 1,
     marginHorizontal: 10,
@@ -215,6 +234,17 @@ const styles = StyleSheet.create({
     borderColor: "#e0e0e0",
     borderWidth: 1,
     fontSize: 16,
+  },
+  translateButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 10,
+  },
+  translateText: {
+    marginLeft: 4,
+    color: "#3D99FF",
+    fontSize: 12,
+    fontWeight: "500",
   },
 });
 

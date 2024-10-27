@@ -21,8 +21,8 @@ import { LoginResponse, LoginValues } from "@/types/auth/AuthTypes";
 import { loginUser } from "@/services/authService";
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().min(6, "Too Short!").required("Required"),
+  email: Yup.string().email("Email invalido").required("Requerido"),
+  password: Yup.string().min(6, "muy corto !").required("Requerido"),
 });
 
 export default function Login() {
@@ -70,14 +70,14 @@ export default function Login() {
           className={isMobile ? "text-2xl font-bold text-[#5dade2] mb-1" : null}
           style={!isMobile ? styles.title : null}
         >
-          Welcome to SelliaConnect
+          Bienvenido a SelliaConnect
         </Text>
         <View style={styles.titleUnderline} />
         <Text
           className={isMobile ? "text-sm text-gray-500 mb-4" : null}
           style={!isMobile ? styles.subtitle : null}
         >
-          Please sign in to continue
+          Por favor, inicia sesión para continuar.
         </Text>
       </View>
 
@@ -139,7 +139,7 @@ export default function Login() {
                   : null
               }
               style={!isMobile ? styles.input : null}
-              placeholder="Password"
+              placeholder="Contraseña"
               onChangeText={handleChange("password")}
               onBlur={handleBlur("password")}
               value={values.password}
@@ -175,7 +175,7 @@ export default function Login() {
                 }
                 style={!isMobile ? styles.buttonText : null}
               >
-                {isSubmitting ? "Loading..." : "Login"}
+                {isSubmitting ? "Cargando..." : "Iniciar Sesión"}
               </Text>
             </TouchableOpacity>
           </View>

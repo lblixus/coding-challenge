@@ -70,7 +70,6 @@ const UserDetails = ({ user }: { user: User }) => {
           </Text>
         </View>
 
-        {/* Sección para agregar notas */}
         <View style={styles.notesSection}>
           <Text style={styles.notesTitle}>Agregar Nota:</Text>
           <TextInput
