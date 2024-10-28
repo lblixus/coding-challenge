@@ -134,7 +134,7 @@ export default function ChatTabView({
       />
       <TouchableOpacity style={styles.aiButton}>
         <MaterialIcons name="auto-awesome" size={24} color="#ffffff" />
-        <Text style={styles.aiButtonText}>Ordenar por prioridad con IA</Text>
+        <Text style={styles.aiButtonText}>Ordenar Prioridad con IA</Text>
       </TouchableOpacity>
     </View>
   );
@@ -204,20 +204,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#4CAF50",
-    paddingVertical: 15,
-    paddingHorizontal: 10,
-    borderRadius: 12,
+    backgroundColor: "#5dade2",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
     margin: 10,
     elevation: 4,
     shadowColor: "#000",
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowOffset: { width: 0, height: 3 },
   },
   aiButtonText: {
     color: "#ffffff",
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: "bold",
     marginLeft: 8,
+    textTransform: "uppercase",
   },
 });

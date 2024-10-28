@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "expo-router";
 import { logoutAction } from "@/store/authSlice";
 import ProtectedRoute from "@/store/ProtectedRoute";
+import { Colors } from "@/constants/Colors";
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -21,37 +22,58 @@ const Profile = () => {
     router.replace("/login");
   };
 
+  const themeColors = Colors.light;
+
   return (
     <ProtectedRoute>
-      <View style={styles.container}>
+      <View
+        style={[styles.container, { backgroundColor: themeColors.background }]}
+      >
         <View
           style={[
             styles.profileContainer,
             Platform.OS === "web" && styles.webContainer,
+            { backgroundColor: themeColors.background },
           ]}
         >
           <Image
             source={require("../../assets/images/avatar-svgrepo-com.png")}
-            style={styles.avatar}
+            style={[styles.avatar, { backgroundColor: themeColors.icon }]}
           />
-          <Text style={styles.title}>¡Hola, Luis!</Text>
-          <Text style={styles.subtitle}>
+          <Text style={[styles.title, { color: themeColors.text }]}>
+            ¡Hola, Luis!
+          </Text>
+          <Text style={[styles.subtitle, { color: themeColors.text }]}>
             Bienvenido de nuevo, gestiona tus ajustes de cuenta aquí.
           </Text>
 
           <View style={styles.profileInfo}>
-            <View style={styles.infoBox}>
-              <Text style={styles.infoTitle}>Información del perfil</Text>
-              <Text style={styles.infoText}>
+            <View
+              style={[
+                styles.infoBox,
+                { backgroundColor: themeColors.background },
+              ]}
+            >
+              <Text style={[styles.infoTitle, { color: themeColors.text }]}>
+                Información del perfil
+              </Text>
+              <Text style={[styles.infoText, { color: themeColors.text }]}>
                 Aquí puedes revisar y actualizar tu información personal.
               </Text>
             </View>
 
             <TouchableOpacity
-              style={styles.logoutButton}
+              style={[
+                styles.logoutButton,
+                { backgroundColor: themeColors.buttonBackground },
+              ]}
               onPress={handleLogout}
             >
-              <Text style={styles.logoutText}>Cerrar sesión</Text>
+              <Text
+                style={[styles.logoutText, { color: themeColors.buttonText }]}
+              >
+                Cerrar sesión
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -64,13 +86,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    backgroundColor: "#f3f4f6",
     justifyContent: "center",
     alignItems: "center",
   },
   profileContainer: {
     width: "100%",
-    backgroundColor: "#ffffff",
     padding: 24,
     borderRadius: 16,
     shadowColor: "#000",
@@ -87,19 +107,16 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: "#e5e7eb",
     marginBottom: 16,
   },
   title: {
     fontSize: 26,
     fontWeight: "bold",
-    color: "#1f2937",
     marginTop: 8,
     textAlign: "center",
   },
   subtitle: {
     fontSize: 16,
-    color: "#4b5563",
     textAlign: "center",
     marginVertical: 8,
   },
@@ -108,7 +125,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   infoBox: {
-    backgroundColor: "#f1f5f9",
     padding: 20,
     borderRadius: 12,
     shadowColor: "#000",
@@ -120,17 +136,14 @@ const styles = StyleSheet.create({
   infoTitle: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#374151",
     textAlign: "center",
   },
   infoText: {
     fontSize: 14,
-    color: "#6b7280",
     textAlign: "center",
     marginTop: 6,
   },
   logoutButton: {
-    backgroundColor: "#0a7ea4",
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 10,
@@ -144,7 +157,6 @@ const styles = StyleSheet.create({
   },
   logoutText: {
     fontSize: 16,
-    color: "#ffffff",
     fontWeight: "700",
   },
 });

@@ -19,6 +19,7 @@ import { RootState } from "@/store/store";
 import { loginAction } from "@/store/authSlice";
 import { LoginResponse, LoginValues } from "@/types/auth/AuthTypes";
 import { loginUser } from "@/services/authService";
+import { Colors } from "@/constants/Colors";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().email("Email invalido").required("Requerido"),
@@ -155,17 +156,31 @@ export default function Login() {
               </Text>
             )}
             <TouchableOpacity
-              className={`h-14 flex-row items-center justify-center bg-[#5dade2] rounded-lg mt-6 px-5 shadow-lg ${
+              className={`h-14 flex-row items-center justify-center rounded-lg mt-6 px-5 shadow-lg ${
                 isSubmitting ? "opacity-50" : ""
               }`}
-              style={!isMobile ? styles.button : null}
+              style={[
+                !isMobile ? styles.button : null,
+                {
+                  backgroundColor: isMobile
+                    ? Colors.light.tint
+                    : Colors.light.tint,
+                },
+              ]}
               onPress={() => handleSubmit()}
               disabled={isSubmitting}
             >
               {isSubmitting ? (
-                <ActivityIndicator size="small" color="#fff" />
+                <ActivityIndicator
+                  size="small"
+                  color={Colors.light.background}
+                />
               ) : (
-                <Ionicons name="log-in-outline" size={24} color="#fff" />
+                <Ionicons
+                  name="log-in-outline"
+                  size={24}
+                  color={Colors.light.background}
+                />
               )}
               <Text
                 className={
@@ -173,7 +188,10 @@ export default function Login() {
                     ? "text-white text-lg font-semibold ml-3 uppercase tracking-wide"
                     : null
                 }
-                style={!isMobile ? styles.buttonText : null}
+                style={[
+                  !isMobile ? styles.buttonText : null,
+                  { color: Colors.light.buttonText },
+                ]}
               >
                 {isSubmitting ? "Cargando..." : "Iniciar Sesión"}
               </Text>
@@ -252,7 +270,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#5dade2",
+    // backgroundColor: "#5dade2",
     borderRadius: 12,
     marginTop: 16,
     paddingHorizontal: 20,

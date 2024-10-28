@@ -91,7 +91,7 @@ function StackWithCustomHeader() {
                   alignItems: "center",
                   paddingVertical: 8,
                   paddingHorizontal: 15,
-                  backgroundColor: "#0a7ea4",
+                  backgroundColor: "#5DADE2",
                   borderRadius: 8,
                   shadowColor: "#000",
                   shadowOffset: { width: 0, height: 2 },

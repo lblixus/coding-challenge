@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { User } from "@/types/User";
+import { Colors } from "@/constants/Colors";
 
 const UserDetails = ({ user }: { user: User }) => {
   const [note, setNote] = useState("");
@@ -21,6 +22,8 @@ const UserDetails = ({ user }: { user: User }) => {
     Alert.alert("Nota guardada", `Nota: ${note}`);
     setNote("");
   };
+
+  const themeColors = Colors.light;
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -32,7 +35,7 @@ const UserDetails = ({ user }: { user: User }) => {
           />
           <View style={styles.userInfo}>
             <Text
-              style={styles.userName}
+              style={[styles.userName, { color: themeColors.text }]}
               numberOfLines={1}
               ellipsizeMode="tail"
             >
@@ -42,50 +45,96 @@ const UserDetails = ({ user }: { user: User }) => {
         </View>
 
         <TouchableOpacity
-          style={[styles.mediaButton, { width: width < 400 ? "100%" : "70%" }]}
+          style={[
+            styles.mediaButton,
+            {
+              backgroundColor: themeColors.tint,
+              width: width < 400 ? "100%" : "70%",
+            },
+          ]}
         >
-          <View style={styles.mediaIconContainer}>
-            <Ionicons name="image-outline" size={24} color="#fff" />
+          <View
+            style={[
+              styles.mediaIconContainer,
+              { backgroundColor: themeColors.icon },
+            ]}
+          >
+            <Ionicons
+              name="image-outline"
+              size={24}
+              color={themeColors.background}
+            />
           </View>
-          <Text style={styles.mediaButtonText}>Media</Text>
+          <Text
+            style={[styles.mediaButtonText, { color: themeColors.background }]}
+          >
+            Media
+          </Text>
           <View style={styles.mediaBadge}>
-            <Text style={styles.mediaCount}>0</Text>
+            <Text style={[styles.mediaCount, { color: themeColors.tint }]}>
+              0
+            </Text>
           </View>
         </TouchableOpacity>
 
         <View style={styles.additionalInfo}>
-          <Text style={styles.infoLabel}>Última incidencia reportada:</Text>
-          <Text style={styles.infoValue}>25/10/2024</Text>
+          <Text
+            style={[styles.infoLabel, { color: themeColors.tabIconDefault }]}
+          >
+            Última incidencia reportada:
+          </Text>
+          <Text style={[styles.infoValue, { color: themeColors.text }]}>
+            25/10/2024
+          </Text>
 
-          <Text style={styles.infoLabel}>Tipo de incidencia:</Text>
-          <Text style={styles.infoValue}>Soporte técnico</Text>
+          <Text
+            style={[styles.infoLabel, { color: themeColors.tabIconDefault }]}
+          >
+            Tipo de incidencia:
+          </Text>
+          <Text style={[styles.infoValue, { color: themeColors.text }]}>
+            Soporte técnico
+          </Text>
 
-          <Text style={styles.infoLabel}>Prioridad:</Text>
+          <Text
+            style={[styles.infoLabel, { color: themeColors.tabIconDefault }]}
+          >
+            Prioridad:
+          </Text>
           <Text style={[styles.infoValue, styles.priorityHigh]}>Alta</Text>
 
-          <Text style={styles.infoLabel}>Notas sobre el caso:</Text>
-          <Text style={styles.notes}>
+          <Text
+            style={[styles.infoLabel, { color: themeColors.tabIconDefault }]}
+          >
+            Notas sobre el caso:
+          </Text>
+          <Text style={[styles.notes, { color: themeColors.icon }]}>
             Cliente reportó fallos intermitentes en la aplicación móvil, aún en
             revisión por parte del equipo de desarrollo.
           </Text>
         </View>
 
         <View style={styles.notesSection}>
-          <Text style={styles.notesTitle}>Agregar Nota:</Text>
+          <Text style={[styles.notesTitle, { color: themeColors.text }]}>
+            Agregar Nota:
+          </Text>
           <TextInput
-            style={styles.noteInput}
+            style={[styles.noteInput, { borderColor: themeColors.icon }]}
             placeholder="Escribe una nota..."
+            placeholderTextColor={themeColors.tabIconDefault}
             value={note}
             onChangeText={setNote}
             multiline
             numberOfLines={4}
           />
-          <TouchableOpacity style={styles.saveButton} onPress={handleSaveNote}>
+          <TouchableOpacity
+            style={[styles.saveButton, { backgroundColor: themeColors.tint }]}
+            onPress={handleSaveNote}
+          >
             <Text style={styles.saveButtonText}>Guardar Nota</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Acciones */}
         <View
           style={[
             styles.actions,
@@ -148,10 +197,8 @@ const styles = StyleSheet.create({
   userName: {
     fontSize: 20,
     fontWeight: "600",
-    color: "#333",
   },
   mediaIconContainer: {
-    backgroundColor: "#3D5AFE",
     padding: 10,
     borderRadius: 25,
     alignItems: "center",
@@ -163,7 +210,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 14,
     paddingHorizontal: 20,
-    backgroundColor: "#4A90E2",
     borderRadius: 12,
     marginVertical: 20,
     shadowColor: "#000",
@@ -176,13 +222,8 @@ const styles = StyleSheet.create({
   },
   mediaButtonText: {
     fontSize: 16,
-    color: "#fff",
     fontWeight: "600",
     textAlign: "center",
-  },
-
-  spacer: {
-    flex: 1,
   },
   mediaBadge: {
     backgroundColor: "#fff",
@@ -196,7 +237,6 @@ const styles = StyleSheet.create({
   mediaCount: {
     fontSize: 14,
     fontWeight: "700",
-    color: "#4A90E2",
   },
   additionalInfo: {
     marginTop: 20,
@@ -204,13 +244,11 @@ const styles = StyleSheet.create({
   },
   infoLabel: {
     fontSize: 14,
-    color: "#666",
     fontWeight: "bold",
     marginTop: 10,
   },
   infoValue: {
     fontSize: 16,
-    color: "#333",
     marginBottom: 4,
   },
   priorityHigh: {
@@ -218,7 +256,6 @@ const styles = StyleSheet.create({
   },
   notes: {
     fontSize: 14,
-    color: "#666",
     fontStyle: "italic",
     marginTop: 4,
   },
@@ -229,14 +266,12 @@ const styles = StyleSheet.create({
   },
   notesTitle: {
     fontSize: 16,
-    color: "#333",
     marginBottom: 10,
     fontWeight: "bold",
   },
   noteInput: {
     width: "100%",
     height: 100,
-    borderColor: "#ccc",
     borderWidth: 1,
     borderRadius: 10,
     padding: 12,
@@ -244,7 +279,6 @@ const styles = StyleSheet.create({
     textAlignVertical: "top",
   },
   saveButton: {
-    backgroundColor: "#4A90E2",
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 10,
