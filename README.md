@@ -1,25 +1,27 @@
-# 📱Take-home Coding Challenge
+# 📱 Take-home Coding Challenge
 
-Bienvenido a mi Expo creado con [create-expo-app](https://www.npmjs.com/package/create-expo-app), una herramienta de desarrollo rápida y eficaz para aplicaciones móviles.
+Bienvenido al desafío de desarrollo, construido en [Expo](https://expo.dev/) para una experiencia de desarrollo rápida y eficaz en aplicaciones móviles con React Native.
 
-## 🛠️ Instalación de dependencias
+## 🛠️ Instalación y configuración del ambiente
 
-Para empezar, asegúrate de tener [Node.js](https://nodejs.org/) instalado. Una vez que tengas Node.js, sigue estos pasos para instalar las dependencias:
+### Instalación de Dependencias
 
-1. Clona el repositorio del proyecto y navega a la carpeta del proyecto:
+Para empezar, asegúrate de tener [Node.js](https://nodejs.org/) instalado. Luego, sigue estos pasos para instalar las dependencias necesarias:
+
+1. Clona el repositorio y navega a la carpeta del proyecto:
 
    ```bash
    git clone <URL_DEL_REPOSITORIO>
    cd <NOMBRE_DEL_PROYECTO>
    ```
 
-2. Instala las dependencias necesarias:
+2. Instala las dependencias:
 
    ```bash
    npm install
    ```
 
-## 🚀 Ejecución del proyecto
+### Ejecución del Proyecto
 
 Inicia la aplicación en modo de desarrollo con el siguiente comando:
 
@@ -27,52 +29,26 @@ Inicia la aplicación en modo de desarrollo con el siguiente comando:
 npx expo start -c
 ```
 
-La opción `-c` asegura que se limpie el caché, eliminando posibles conflictos en las actualizaciones de código.
+## 📂 Estructura del Proyecto
 
-Al ejecutar este comando, Expo te dará opciones para ver la aplicación en:
+El desarrollo principal se encuentra en la carpeta **app**, utilizando enrutamiento basado en archivos para facilitar la navegación y organización.
 
-- **Desarrollo en tu dispositivo móvil** con [Expo Go](https://expo.dev/client) escaneando el código QR.
-- **Emulador de Android** si tienes Android Studio instalado ([configuración](https://docs.expo.dev/workflow/android-studio-emulator/)).
-- **Simulador de iOS** en macOS con Xcode ([configuración](https://docs.expo.dev/workflow/ios-simulator/)).
+## 💡 Coding Challenge
 
-> **Nota:** Asegúrate de tener el emulador de tu preferencia en ejecución para conectarlo correctamente con Expo.
+Este proyecto forma parte de un Take-home Coding Challenge para demostrar habilidades en React y React Native. Se ha creado una estructura de diseño adaptable tanto para versiones web como móvil, con capturas adjuntas para ambas.
 
-## 📂 Estructura del proyecto
+## 📋 Guía de Estilos y Accesibilidad
 
-El desarrollo principal se realiza dentro de la carpeta **app**, donde podrás encontrar las rutas y componentes de la aplicación. Este proyecto utiliza **file-based routing** para gestionar la navegación, facilitando la organización del código.
+Este proyecto emplea una paleta de colores optimizada para accesibilidad, cumpliendo con estándares de contraste y usabilidad:
 
-## 🔄 Reiniciar el proyecto
+- **Color Primario**: `#5dade2` – Botones principales y elementos destacados.
+- **Color Secundario**: `#4A90E2` – Navegación y encabezados.
+- **Fondos**: Colores claros (`#f3f4f6`, `#ffffff`) para reducir fatiga visual.
+- **Texto**: Tonos oscuros (`#11181C`) y claros (`#ECEDEE`) en función del fondo.
 
-Si deseas limpiar el proyecto y comenzar desde una base en blanco, puedes ejecutar el siguiente comando:
+## 📱 Aplicación Android/iOS
 
-```bash
-npm run reset-project
-```
+El proyecto está configurado para visualizarse en web y dispositivos móviles. Para este ejemplo, se generó la versión Android, y se adjuntan capturas de pantalla.
 
-Este comando moverá el código base a una carpeta llamada **app-example** y generará una nueva carpeta **app** vacía, lista para que comiences a desarrollar desde cero.
-
-## 📚 Recursos y documentación
-
-Para aprender más sobre el desarrollo con Expo, te recomiendo estos recursos:
-
-- 📄 [Documentación de Expo](https://docs.expo.dev/)
-- 📖 [Tutorial de introducción a Expo](https://docs.expo.dev/tutorial/introduction/)
-
-## 🌐 Comunidad
-
-Únete a la comunidad de Expo para obtener ayuda, compartir tus proyectos o colaborar en código abierto.
-
-- [Expo en GitHub](https://github.com/expo/expo): Contribuye y explora el código fuente de Expo.
-- [Discord de Expo](https://chat.expo.dev): Participa en discusiones y recibe ayuda de otros desarrolladores.
-
-## Take-home Coding Challenge
-
-Este proyecto es un Take-home Coding Challenge.
-
-## Accesibilidad
-
-Para mejorar la experiencia del usuario, hemos implementado prácticas de accesibilidad en la elección de colores, contrastes y tamaño de los elementos en pantalla. lo ideal sera ejecutar escaneos con alguna herramienta completo para garantizar que la app cumpla con los estándares requeridos. se incorporo el framework Tailwind
-
-## App Android/IOS
-
-se genero la aplicación para que pueda ser visualizado tanto en web como en devices,
+## 📚 Recursos y Documentación
+![Mobile - Emulador IOS](./assets/mobile-preview.png)
