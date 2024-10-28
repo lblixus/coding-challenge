@@ -51,4 +51,4 @@ Este proyecto emplea una paleta de colores optimizada para accesibilidad, cumpli
 El proyecto está configurado para visualizarse en web y dispositivos móviles. Para este ejemplo, se generó la versión Android, y se adjuntan capturas de pantalla.
 
 ## 📚 Recursos y Documentación
-![Mobile - Emulador IOS](./assets/mobile-preview.png)
+![Mobile - Emulador IOS](./assets/emu001.png)
