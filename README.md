@@ -52,3 +52,6 @@ El proyecto está configurado para visualizarse en web y dispositivos móviles. 
 
 ## 📚 Recursos y Documentación
 ![Mobile - Emulador IOS](./assets/emu001.png)
+<p align="center">
+  <img src="./assets/emu001.png" alt="Mobile - IOS" width="300" />
+</p>
